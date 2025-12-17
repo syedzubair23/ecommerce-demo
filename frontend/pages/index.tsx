@@ -41,7 +41,7 @@ export default function Home() {
         {loading ? (
           <p>Loading products...</p>
         ) : (
-          <div className="grid">
+          <div className="grid" style={{ marginBottom: '2rem' }}>
             {products.map((product) => (
               <ProductCard
                 key={product.id}
