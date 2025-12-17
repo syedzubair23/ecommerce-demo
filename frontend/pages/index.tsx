@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ProductCard from '@/components/ProductCard';
 import ProductModal from '@/components/ProductModal';
+import { api } from '@/services/api';
 
 interface Product {
-  id: string;
+  _id: string; // Changed from id to _id for Mongo
   name: string;
   description: string;
   price: number;
@@ -16,19 +17,31 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products`)
-      .then((res) => res.json())
+    const user = localStorage.getItem('user');
+    if (!user) {
+      window.location.href = '/login';
+    } else {
+      fetchProducts(page);
+    }
+  }, [page]);
+
+  const fetchProducts = (p: number) => {
+    setLoading(true);
+    api.getProducts(p)
       .then((data) => {
-        setProducts(data);
+        setProducts(data.products);
+        setTotalPages(data.pages);
         setLoading(false);
       })
       .catch((err) => {
         console.error('Failed to fetch products', err);
         setLoading(false);
       });
-  }, []);
+  };
 
   return (
     <>
@@ -41,20 +54,40 @@ export default function Home() {
         {loading ? (
           <p>Loading products...</p>
         ) : (
-          <div className="grid" style={{ marginBottom: '2rem' }}>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onViewDetails={(p) => setSelectedProduct(p)}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid" style={{ marginBottom: '2rem' }}>
+              {products?.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  product={{ ...product, id: product._id }}
+                  onViewDetails={(p) => setSelectedProduct(product)}
+                />
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '2rem' }}>
+              <button
+                disabled={page <= 1}
+                onClick={() => setPage(page - 1)}
+                className="btn btn-outline"
+              >
+                Previous
+              </button>
+              <span style={{ display: 'flex', alignItems: 'center' }}>Page {page} of {totalPages}</span>
+              <button
+                disabled={page >= totalPages}
+                onClick={() => setPage(page + 1)}
+                className="btn btn-outline"
+              >
+                Next
+              </button>
+            </div>
+          </>
         )}
 
         {selectedProduct && (
           <ProductModal
-            product={selectedProduct}
+            product={{ ...selectedProduct, id: selectedProduct._id }}
             onClose={() => setSelectedProduct(null)}
           />
         )}

@@ -1,27 +1,24 @@
-import fs from 'fs';
-import path from 'path';
+import mongoose from 'mongoose';
 
-const dbPath = path.join(__dirname, '../../../database/users.json');
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'customer'],
+        default: 'customer',
+    },
+}, {
+    timestamps: true,
+});
 
-export interface User {
-    id: string;
-    email: string;
-    password: string; // Plaintext for mock demonstration
-    role: 'admin' | 'customer';
-    name: string;
-}
+const User = mongoose.model('User', userSchema);
 
-export const getUsersFromFile = (): User[] => {
-    try {
-        const data = fs.readFileSync(dbPath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error("Error reading users file:", error);
-        return [];
-    }
-};
-
-export const findUserByEmail = (email: string): User | undefined => {
-    const users = getUsersFromFile();
-    return users.find(u => u.email === email);
-};
+export default User;

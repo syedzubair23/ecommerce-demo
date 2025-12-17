@@ -1,51 +1,55 @@
 import { Request, Response } from 'express';
-import { getProductsFromFile, getProductById } from '../models/productModel';
+import Product from '../models/productModel';
 
-export const getProducts = (req: Request, res: Response) => {
+export const getProducts = async (req: Request, res: Response): Promise<void> => {
     try {
-        const products = getProductsFromFile();
-        res.json(products);
-    } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 9;
+        const skip = (page - 1) * limit;
+
+        const count = await Product.countDocuments();
+        const products = await Product.find({})
+            .limit(limit)
+            .skip(skip);
+
+        res.json({
+            products,
+            page,
+            pages: Math.ceil(count / limit),
+            total: count
+        });
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
     }
 };
 
-export const getProduct = (req: Request, res: Response) => {
+export const getProductById = async (req: Request, res: Response): Promise<void> => {
     try {
-        const product = getProductById(req.params.id);
+        const product = await Product.findById(req.params.id);
         if (product) {
             res.json(product);
         } else {
-            res.status(404).json({ message: "Product not found" });
+            res.status(404).json({ message: 'Product not found' });
         }
-    } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
     }
 };
 
-export const addProduct = (req: Request, res: Response) => {
+export const createProduct = async (req: Request, res: Response): Promise<void> => {
     try {
-        const products = getProductsFromFile();
-        const newProduct = {
-            id: String(products.length + 1),
-            ...req.body
-        };
-        // Ideally write to file here. For mock, we just return it. 
-        // Real implementation would be: 
-        // products.push(newProduct);
-        // fs.writeFileSync(dbPath, JSON.stringify(products, null, 2));
+        const { name, description, price, availability, image } = req.body;
 
-        // Let's actually write it to make it persistent for the demo!
-        const fs = require('fs');
-        const path = require('path');
-        const dbPath = path.join(__dirname, '../../../database/products.json');
+        const product = await Product.create({
+            name,
+            description,
+            price,
+            availability,
+            image,
+        });
 
-        products.push(newProduct);
-        fs.writeFileSync(dbPath, JSON.stringify(products, null, 2));
-
-        res.status(201).json(newProduct);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server Error" });
+        res.status(201).json(product);
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
     }
 };

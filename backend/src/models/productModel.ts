@@ -1,28 +1,31 @@
-import fs from 'fs';
-import path from 'path';
+import mongoose from 'mongoose';
 
-const dbPath = path.join(__dirname, '../../../database/products.json');
+const productSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    availability: {
+        type: String,
+        enum: ['In Stock', 'Out of Stock'],
+        default: 'In Stock',
+    },
+    image: {
+        type: String,
+        required: true,
+    },
+}, {
+    timestamps: true,
+});
 
-export interface Product {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    availability: string;
-    image: string;
-}
+const Product = mongoose.model('Product', productSchema);
 
-export const getProductsFromFile = (): Product[] => {
-    try {
-        const data = fs.readFileSync(dbPath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error("Error reading products file:", error);
-        return [];
-    }
-};
-
-export const getProductById = (id: string): Product | undefined => {
-    const products = getProductsFromFile();
-    return products.find(p => p.id === id);
-};
+export default Product;

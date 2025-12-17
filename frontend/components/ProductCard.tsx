@@ -14,15 +14,20 @@ interface ProductCardProps {
     onViewDetails: (product: Product) => void;
 }
 
+import Link from 'next/link';
+
+// ... (interfaces)
+
 export default function ProductCard({ product, onViewDetails }: ProductCardProps) {
     return (
         <div className={styles.card}>
             <div className={styles.imageContainer}>
-                {/* Using standard img for simplicity with external URLs, could use Next/Image */}
                 <img src={product.image} alt={product.name} className={styles.image} />
             </div>
             <div className={styles.content}>
-                <h3 className={styles.title}>{product.name}</h3>
+                <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <h3 className={styles.title} style={{ cursor: 'pointer' }}>{product.name}</h3>
+                </Link>
                 <p className={styles.price}>${product.price.toFixed(2)}</p>
                 <div className={styles.actions}>
                     <button

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/router';
+import { api } from '@/services/api';
 
 export default function AddProduct() {
     const router = useRouter();
@@ -12,6 +13,13 @@ export default function AddProduct() {
         image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop'
     });
 
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.role !== 'admin') {
+            router.push('/');
+        }
+    }, []);
+
     const handleChange = (e: any) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -19,14 +27,11 @@ export default function AddProduct() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    price: parseFloat(formData.price)
-                }),
+            const res = await api.addProduct({
+                ...formData,
+                price: parseFloat(formData.price)
             });
+
             if (res.ok) {
                 alert('Product added!');
                 router.push('/');
