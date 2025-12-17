@@ -5,7 +5,7 @@ A full-stack e-commerce module built with **Next.js**, **Node.js/TypeScript**, a
 ## 🚀 Quick Start
 
 ### 1. Environment Setup
-Create a `.env` file in the `backend` directory and a `.env.local` file in the `frontend` directory.
+Create a `.env` file in the `backend` and `frontend` directory.
 
 **Backend (.env)**
 ```env
@@ -14,7 +14,7 @@ JWT_SECRET=your_jwt_secret
 PORT=5231
 ```
 
-**Frontend (.env.local)**
+**Frontend (.env)**
 ```env
 NEXT_PUBLIC_BASE_URL=http://localhost:5231
 ```
