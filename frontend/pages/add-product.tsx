@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/router';
 import { api } from '@/services/api';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
+import { Select } from '@/components/ui/Select';
+import styles from '@/styles/AddProduct.module.css';
 
 export default function AddProduct() {
     const router = useRouter();
@@ -47,33 +51,56 @@ export default function AddProduct() {
     return (
         <>
             <Navbar />
-            <div className="container" style={{ marginTop: '2rem', maxWidth: '600px' }}>
-                <h1 style={{ marginBottom: '1.5rem' }}>Add New Product</h1>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Name</label>
-                        <input name="name" onChange={handleChange} required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ddd' }} />
+            <div className={`container ${styles.container}`}>
+                <div className={styles.backBtn}>
+                    <Button variant="outline" onClick={() => router.push('/')}>&larr; Back to Home</Button>
+                </div>
+                <h1 className={styles.title}>Add New Product</h1>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <Input
+                        label="Name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                    <div className={styles.textareaContainer}>
+                        <label className={styles.label}>Description</label>
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            required
+                            className={styles.textarea}
+                        />
                     </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Description</label>
-                        <textarea name="description" onChange={handleChange} required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ddd' }} />
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Price</label>
-                        <input name="price" type="number" step="0.01" onChange={handleChange} required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ddd' }} />
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Image URL</label>
-                        <input name="image" value={formData.image} onChange={handleChange} required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ddd' }} />
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Availability</label>
-                        <select name="availability" onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ddd' }}>
-                            <option value="In Stock">In Stock</option>
-                            <option value="Out of Stock">Out of Stock</option>
-                        </select>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Add Product</button>
+                    <Input
+                        label="Price ($)"
+                        name="price"
+                        type="number"
+                        step="0.01"
+                        value={formData.price}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Input
+                        label="Image URL"
+                        name="image"
+                        value={formData.image}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Select
+                        label="Availability"
+                        name="availability"
+                        value={formData.availability}
+                        onChange={handleChange}
+                        options={[
+                            { value: 'In Stock', label: 'In Stock' },
+                            { value: 'Out of Stock', label: 'Out of Stock' }
+                        ]}
+                    />
+                    <Button type="submit">Add Product</Button>
                 </form>
             </div>
         </>

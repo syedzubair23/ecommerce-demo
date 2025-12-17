@@ -1,0 +1,37 @@
+.navbar {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.navContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navLogo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.navActions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.userInfo {
+    font-size: 0.9rem;
+}
+
+.addProductBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.logoutBtn {
+    font-size: 0.9rem;
+}

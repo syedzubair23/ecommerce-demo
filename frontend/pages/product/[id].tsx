@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import { api } from '@/services/api';
 import { Button } from '@/components/ui/Button';
+import styles from '@/styles/ProductDetail.module.css';
 
 interface Product {
     _id: string;
@@ -36,61 +37,56 @@ export default function ProductDetail() {
     if (loading) return (
         <>
             <Navbar />
-            <div className="container" style={{ marginTop: '2rem' }}>Loading...</div>
+            <div className={`container ${styles.container}`}>Loading...</div>
         </>
     );
 
     if (!product) return (
         <>
             <Navbar />
-            <div className="container" style={{ marginTop: '2rem' }}>Product not found</div>
+            <div className={`container ${styles.container}`}>Product not found</div>
         </>
     );
+
+    const isInStock = product.availability === 'In Stock';
 
     return (
         <>
             <Navbar />
-            <div className="container" style={{ marginTop: '2rem' }}>
-                <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
-                    <div style={{ flex: '1 1 400px' }}>
+            <div className={`container ${styles.container}`}>
+                <div className={styles.backBtn}>
+                    <Button variant="outline" onClick={() => router.push('/')}>&larr; Back to Listing</Button>
+                </div>
+                <div className={styles.productWrapper}>
+                    <div className={styles.imageSection}>
                         <img
                             src={product.image}
                             alt={product.name}
-                            style={{ width: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+                            className={styles.productImage}
                         />
                     </div>
-                    <div style={{ flex: '1 1 400px' }}>
-                        <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>{product.name}</h1>
-                        <p style={{ fontSize: '1.5rem', color: '#39B54A', fontWeight: '600', marginBottom: '1.5rem' }}>
-                            ${product.price ? product.price.toFixed(2) : 'N/A'}
+                    <div className={styles.infoSection}>
+                        <h1 className={styles.title}>{product.name}</h1>
+                        <p className={styles.price}>
+                            ${product.price ? product.price.toFixed(2) : '0.00'}
                         </p>
 
-                        <div style={{ marginBottom: '2rem' }}>
-                            <span style={{
-                                padding: '0.25rem 0.75rem',
-                                background: product.availability === 'In Stock' ? '#dcfce7' : '#fee2e2',
-                                color: product.availability === 'In Stock' ? '#166534' : '#991b1b',
-                                borderRadius: '9999px',
-                                fontSize: '0.875rem',
-                                fontWeight: '500'
-                            }}>
+                        <div className={styles.badgeContainer}>
+                            <span className={`${styles.badge} ${isInStock ? styles.inStock : styles.outOfStock}`}>
                                 {product.availability}
                             </span>
                         </div>
 
-                        <p style={{ fontSize: '1.1rem', color: '#4B5563', lineHeight: '1.6', marginBottom: '2rem' }}>
+                        <p className={styles.description}>
                             {product.description}
                         </p>
 
                         <Button
-                            disabled={product.availability !== 'In Stock'}
-                            style={{
-                                fontSize: '1.1rem',
-                                padding: '1rem 2rem',
-                                opacity: product.availability !== 'In Stock' ? 0.5 : 1
-                            }}
+                            disabled={!isInStock}
+                            className={`${styles.buyButton} ${!isInStock ? styles.disabled : ''}`}
+                            variant={isInStock ? 'primary' : 'outline'}
                         >
-                            {product.availability === 'In Stock' ? 'Add to Cart' : 'Out of Stock'}
+                            {isInStock ? 'Add to Cart' : 'Out of Stock'}
                         </Button>
                     </div>
                 </div>

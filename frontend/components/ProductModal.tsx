@@ -1,4 +1,5 @@
 import styles from '@/styles/ProductModal.module.css';
+import { Button } from '@/components/ui/Button';
 
 interface Product {
     id: string;
@@ -28,7 +29,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                         <img src={product.image} alt={product.name} className={styles.image} />
                     </div>
 
-                    <h3 className="title" style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{product.name}</h3>
+                    <h3 className={styles.productName}>{product.name}</h3>
 
                     <p className={styles.description}>
                         {product.description}
@@ -43,8 +44,8 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 </div>
 
                 <div className={styles.footer}>
-                    <button className="btn btn-primary">Add to Cart</button>
-                    <button className="btn btn-outline" onClick={onClose}>Close</button>
+                    <Button variant="primary">Add to Cart</Button>
+                    <Button variant="outline" onClick={onClose}>Close</Button>
                 </div>
             </div>
         </div>

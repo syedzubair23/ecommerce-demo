@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import ProductCard from '@/components/ProductCard';
 import ProductModal from '@/components/ProductModal';
 import { api } from '@/services/api';
+import styles from '@/styles/Home.module.css';
 
 interface Product {
   _id: string; // Changed from id to _id for Mongo
@@ -47,15 +48,15 @@ export default function Home() {
     <>
       <Navbar />
       <main className="container">
-        <div style={{ marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Product Listing</h1>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Product Listing</h1>
         </div>
 
         {loading ? (
-          <p>Loading products...</p>
+          <p className={styles.loading}>Loading products...</p>
         ) : (
           <>
-            <div className="grid" style={{ marginBottom: '2rem' }}>
+            <div className={`grid ${styles.grid}`}>
               {products?.map((product) => (
                 <ProductCard
                   key={product._id}
@@ -65,7 +66,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '2rem' }}>
+            <div className={styles.pagination}>
               <button
                 disabled={page <= 1}
                 onClick={() => setPage(page - 1)}
@@ -73,7 +74,7 @@ export default function Home() {
               >
                 Previous
               </button>
-              <span style={{ display: 'flex', alignItems: 'center' }}>Page {page} of {totalPages}</span>
+              <span className={styles.pageInfo}>Page {page} of {totalPages}</span>
               <button
                 disabled={page >= totalPages}
                 onClick={() => setPage(page + 1)}

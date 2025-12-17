@@ -5,6 +5,7 @@ import { api } from '@/services/api';
 import Link from 'next/link';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import styles from '@/styles/Login.module.css';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -32,12 +33,12 @@ export default function Login() {
     return (
         <>
             <Navbar />
-            <div className="container" style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
-                <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
-                    <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', textAlign: 'center' }}>Login</h1>
+            <div className={`container ${styles.container}`}>
+                <div className={styles.card}>
+                    <h1 className={styles.title}>Login</h1>
 
                     {error && (
-                        <div style={{ background: '#fee2e2', color: '#991b1b', padding: '0.75rem', borderRadius: '6px', marginBottom: '1rem', fontSize: '0.875rem' }}>
+                        <div className={styles.error}>
                             {error}
                         </div>
                     )}
@@ -59,10 +60,10 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
 
-                        <Button type="submit" style={{ width: '100%' }}>Login</Button>
+                        <Button type="submit" className={styles.fullWidth}>Login</Button>
                     </form>
 
-                    <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                    <div className={styles.footer}>
                         Don't have an account? <Link href="/signup">Sign Up</Link>
                     </div>
                 </div>

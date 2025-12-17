@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import { api } from '@/services/api';
+import Link from 'next/link';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
+import styles from '@/styles/Signup.module.css';
 
 export default function Signup() {
     const router = useRouter();
@@ -31,10 +33,10 @@ export default function Signup() {
     return (
         <>
             <Navbar />
-            <div className="container" style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
-                <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
-                    <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', textAlign: 'center' }}>Sign Up</h1>
-                    {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
+            <div className={`container ${styles.container}`}>
+                <div className={styles.card}>
+                    <h1 className={styles.title}>Sign Up</h1>
+                    {error && <div className={styles.error}>{error}</div>}
                     <form onSubmit={handleSubmit}>
                         <Input
                             label="Email"
@@ -59,8 +61,11 @@ export default function Signup() {
                                 { value: 'admin', label: 'Admin' }
                             ]}
                         />
-                        <Button type="submit" style={{ width: '100%' }}>Sign Up</Button>
+                        <Button type="submit" className={styles.fullWidth}>Sign Up</Button>
                     </form>
+                    <div className={styles.footer}>
+                        Already have an account? <Link href="/login">Sign In</Link>
+                    </div>
                 </div>
             </div>
         </>

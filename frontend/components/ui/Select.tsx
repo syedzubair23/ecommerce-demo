@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '@/styles/Select.module.css';
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     label?: string;
@@ -7,21 +8,14 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 
 export const Select = ({ label, options, ...props }: SelectProps) => {
     return (
-        <div style={{ marginBottom: '1rem' }}>
+        <div className={styles.container}>
             {label && (
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+                <label className={styles.label}>
                     {label}
                 </label>
             )}
             <select
-                style={{
-                    width: '100%',
-                    padding: '0.75rem',
-                    borderRadius: '6px',
-                    border: '1px solid #d1d5db',
-                    fontSize: '1rem',
-                    backgroundColor: 'white',
-                }}
+                className={styles.select}
                 {...props}
             >
                 {options.map((option) => (

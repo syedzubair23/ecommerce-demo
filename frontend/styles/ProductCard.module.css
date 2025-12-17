@@ -36,11 +36,17 @@
     flex-direction: column;
 }
 
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+}
+
 .title {
     font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: #111827;
+    cursor: pointer;
 }
 
 .price {
@@ -52,4 +58,8 @@
 
 .actions {
     margin-top: auto;
+}
+
+.viewBtn {
+    width: 100%;
 }

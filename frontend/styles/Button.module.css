@@ -1,0 +1,27 @@
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.2s;
+    font-size: 1rem;
+}
+
+.primary {
+    background-color: #39B54A;
+    color: white;
+}
+
+.outline {
+    background-color: white;
+    border: 1px solid #E5E7EB;
+    color: #1F2937;
+}
+
+.danger {
+    background-color: #DC2626;
+    color: white;
+}

@@ -1,4 +1,6 @@
 import styles from '@/styles/ProductCard.module.css';
+import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 
 interface Product {
     id: string;
@@ -14,10 +16,6 @@ interface ProductCardProps {
     onViewDetails: (product: Product) => void;
 }
 
-import Link from 'next/link';
-
-// ... (interfaces)
-
 export default function ProductCard({ product, onViewDetails }: ProductCardProps) {
     return (
         <div className={styles.card}>
@@ -25,18 +23,18 @@ export default function ProductCard({ product, onViewDetails }: ProductCardProps
                 <img src={product.image} alt={product.name} className={styles.image} />
             </div>
             <div className={styles.content}>
-                <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <h3 className={styles.title} style={{ cursor: 'pointer' }}>{product.name}</h3>
+                <Link href={`/product/${product.id}`} className={styles.titleLink}>
+                    <h3 className={styles.title}>{product.name}</h3>
                 </Link>
                 <p className={styles.price}>${product.price.toFixed(2)}</p>
                 <div className={styles.actions}>
-                    <button
-                        className="btn btn-outline"
-                        style={{ width: '100%' }}
+                    <Button
+                        variant="outline"
+                        className={styles.viewBtn}
                         onClick={() => onViewDetails(product)}
                     >
                         View Details
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

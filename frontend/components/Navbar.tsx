@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import styles from '@/styles/Navbar.module.css';
 
 export default function Navbar() {
     const router = useRouter();
@@ -20,24 +21,24 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="navbar">
-            <div className="container nav-content">
-                <Link href="/" className="nav-logo" style={{ textDecoration: 'none' }}>
+        <nav className={styles.navbar}>
+            <div className={`container ${styles.navContent}`}>
+                <Link href="/" className={styles.navLogo}>
                     Mindwhiz
                 </Link>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div className={styles.navActions}>
                     {user ? (
                         <>
-                            <span>Hi, {user.email?.split('@')[0]} ({user.role})</span>
+                            <span className={styles.userInfo}>Hi, {user.email?.split('@')[0]} ({user.role})</span>
                             {user.role === 'admin' && (
-                                <Link href="/add-product" className="btn btn-primary" style={{ textDecoration: 'none', padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+                                <Link href="/add-product" className={`btn btn-primary ${styles.addProductBtn}`}>
                                     Add Product
                                 </Link>
                             )}
-                            <button onClick={logout} className="btn btn-outline" style={{ fontSize: '0.9rem' }}>Logout</button>
+                            <button onClick={logout} className={`btn btn-outline ${styles.logoutBtn}`}>Logout</button>
                         </>
                     ) : (
-                        <Link href="/login" className="btn btn-primary" style={{ textDecoration: 'none' }}>
+                        <Link href="/login" className="btn btn-primary w-full">
                             Login
                         </Link>
                     )}
