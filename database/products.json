@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Wireless Noise-Canceling Headphones",
+    "description": "Experience immersive sound with our premium noise-canceling headphones. Features 30-hour battery life and ultra-comfortable ear cushions.",
+    "price": 299.99,
+    "availability": "In Stock",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    "id": "2",
+    "name": "Smart Fitness Watch",
+    "description": "Track your health and workouts with precision. Includes heart rate monitoring, sleep tracking, and GPS.",
+    "price": 149.50,
+    "availability": "In Stock",
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    "id": "3",
+    "name": "Mechanical Gaming Keyboard",
+    "description": "RGB backlit mechanical keyboard with tactile blue switches. Perfect for gaming and typing enthusiasts.",
+    "price": 89.99,
+    "availability": "Out of Stock",
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b91a05c?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    "id": "4",
+    "name": "4K Ultra HD Monitor",
+    "description": "27-inch 4K monitor with stunning color accuracy and slim bezels. Ideal for designers and gamers.",
+    "price": 349.00,
+    "availability": "In Stock",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    "id": "5",
+    "name": "Ergonomic Office Chair",
+    "description": "High-back mesh chair with lumbar support and adjustable armrests. Designed for all-day comfort.",
+    "price": 199.95,
+    "availability": "In Stock",
+    "image": "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1000&auto=format&fit=crop"
+  }
+]
