@@ -59,9 +59,21 @@ To ensure the application remains fast even as the catalog grows, we implemented
 Run `npm test` in the `backend` directory to execute unit tests for the product API. The tests are written with a clear ARRANGE-ACT-ASSERT structure for better maintainability.
 
 ### 5. Screenshots
-![Login](./login.png)
-![Signup](./signup.png)
-![Product Listing](./product-listing.png)
-![Add New Product](./add-new-product.png)
-![View Product Details](./view-product-details.png)
-![New Product Listing](./new-product-listing.png)
+
+#### Login Page
+![Login](./frontend/public/login.png)
+
+#### Signup Page
+![Signup](./frontend/public/signup.png)
+
+#### Home Page / Product Listing
+![Product Listing](./frontend/public/product-listing.png)
+
+#### Product Details Page
+![View Product Details](./frontend/public/view-product-details.png)
+
+#### Add New Product Page (Admin Only)
+![Add New Product](./frontend/public/add-new-product.png)
+
+#### Updated Listing after Adding Product
+![New Product Listing](./frontend/public/new-product-listing.png)
